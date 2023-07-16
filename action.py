@@ -1,7 +1,7 @@
 from time import sleep
 
 from driver import HibotDriver
-from send_type import MotorPType
+from send_type import MotorPType,ClassicType
 
 
 class HandAction:
@@ -32,23 +32,40 @@ class HandAction:
         bytesl1 = MotorPType.stepMpToEndLoc(0x0101, -2000, 400, 0)
         bytes2l = MotorPType.stepMpToEndLoc(0x0103, -5000, 1000, 0)
         d.serial_send(bytesl+bytesl1+bytes2l)
+        d.serial_send(ClassicType.endOrder())
         sleep(1.8)
 
         bytes31 = MotorPType.stepMpToEndLoc(0x0102, 8000, 1000, 0)
         d.serial_send(bytes31)
+        d.serial_send(ClassicType.endOrder())
         sleep(1.1)
 
         bytes32 = MotorPType.stepMpToEndLoc(0x0102, 0, 1000, 0)
         d.serial_send(bytes32)
+        d.serial_send(ClassicType.endOrder())
         sleep(1.1)
 
         bytes33 = MotorPType.stepMpToEndLoc(0x0102, 8000, 1000, 1)
         d.serial_send(bytes33)
+        d.serial_send(ClassicType.endOrder())
         sleep(1.1)
 
         bytes34 = MotorPType.stepMpZero(0x0102, 8000)
         d.serial_send(bytes34)
+        d.serial_send(ClassicType.endOrder())
         sleep(1.1)
 
-        HandAction.allStepToZero()
+        HandAction.allStepToZero(d)
+        d.serial_send(ClassicType.endOrder())
         sleep(1.9)
+
+    @staticmethod
+    def handSeeYouNow(d: HibotDriver):
+        bytes = MotorPType.stepMpToEndLoc(0x0105, 18000, 2600, 0)
+        bytes1 = MotorPType.stepMpToEndLoc(0x0106, -2000, 400, 0)
+        bytes2 = MotorPType.stepMpToEndLoc(0x0108, -7000, 1400, 0)
+        bytes3 = MotorPType.stepMpZero(0x0107, 5000)
+        d.serial_send(bytes+bytes1+bytes2+bytes3)
+        d.serial_send(ClassicType.endOrder())
+        sleep(2.8)
+

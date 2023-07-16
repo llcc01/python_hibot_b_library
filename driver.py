@@ -7,7 +7,8 @@ class HibotDriver:
         self.ser = serial.Serial(port, baudrate, timeout=1)
         self.ser.flush()
 
-    def serial_send(self, data):
+    def serial_send(self, data: bytearray):
+        print(data.hex())
         self.ser.write(data)
 
     def serial_read(self):
@@ -19,5 +20,5 @@ class HibotDriver:
     def serial_flush(self):
         self.ser.flush()
 
-    def do_action(self, action: function):
+    def do_action(self, action):
         action(self)

@@ -1,7 +1,7 @@
 from frame import FrameOne, FrameTwo, FrameThree
 
 # 底盘是否是有刷直流电机
-brush = True
+brush = False
 
 # 是否锁住底盘
 lockClassic = False
@@ -11,7 +11,7 @@ class ClassicType:
     # 机身静止
     @staticmethod
     def motionless():
-        bytes = []
+        bytes = bytearray()
         if brush:
             bytes1 = FrameTwo.two(0x0300, 0x0000, 0x0003, 0x0000, 0x0000, bytes, 1)
             output = FrameOne.output(bytes1, 0x00, 0x03)
@@ -95,7 +95,7 @@ class ClassicType:
     def runWithSpeed(left, right, time) -> bytearray:
         bytes = FrameThree.send5(left, right, time)
         if brush:
-            bytes1 = FrameTwo.two(0x0300, 0x0000, 0x0003, 0x0004, 0x0000, bytes, 1)
+            bytes1 = FrameTwo.two(0x0300, 0x0000, 0x0003, 0x0004, bytes, 1)
             output = FrameOne.output(bytes1, 0x00, 0x03)
             if not lockClassic:
                 return output
@@ -105,7 +105,7 @@ class ClassicType:
                 else:
                     return bytearray()
         else:
-            bytes1 = FrameTwo.two(0x0500, 0x0000, 0x0003, 0x0004, 0x0000, bytes, 1)
+            bytes1 = FrameTwo.two(0x0500, 0x0000, 0x0003, 0x0004, bytes, 1)
             output = FrameOne.output(bytes1, 0x00, 0x05)
             if not lockClassic:
                 return output
@@ -118,21 +118,21 @@ class ClassicType:
     # 数据反馈
     @staticmethod
     def getClassicData() -> bytearray:
-        bytes = []
+        bytes = bytearray()
         if brush:
-            bytes1 = FrameTwo.two(0x0300, 0x0000, 0x0003, 0x0005, 0x0000, bytes, 1)
+            bytes1 = FrameTwo.two(0x0300, 0x0000, 0x0003, 0x0005, bytes, 1)
             output = FrameOne.output(bytes1, 0x00, 0x03)
             return output
         else:
-            bytes1 = FrameTwo.two(0x0500, 0x0000, 0x0003, 0x0005, 0x0000, bytes, 1)
+            bytes1 = FrameTwo.two(0x0500, 0x0000, 0x0003, 0x0005, bytes, 1)
             output = FrameOne.output(bytes1, 0x00, 0x05)
             return output
         
     # 结束指令
     @staticmethod
     def endOrder() -> bytearray:
-        bytes = []
-        bytes1 = FrameTwo.two(0x00FE, 0x0000, 0, 0, 0x0000, bytes, 1)
+        bytes = bytearray()
+        bytes1 = FrameTwo.two(0x00FE, 0x0000, 0, 0, bytes, 1)
         output = FrameOne.output(bytes1, 0xFE, 0x00)
         return output
     
@@ -164,20 +164,20 @@ class ClassicType:
     # 获取底盘控制固件版本号
     @staticmethod
     def getFwVersion() -> bytearray:
-        bytes = []
+        bytes = bytearray()
         if brush:
-            bytes1 = FrameTwo.two(0x0300, 0x0000, 0x0003, 0x0006, 0x0000, bytes, 1)
+            bytes1 = FrameTwo.two(0x0300, 0x0000, 0x0003, 0x0006, bytes, 1)
             output = FrameOne.output(bytes1, 0x00, 0x03)
             return output
         else:
-            bytes1 = FrameTwo.two(0x0500, 0x0000, 0x0003, 0x0006, 0x0000, bytes, 1)
+            bytes1 = FrameTwo.two(0x0500, 0x0000, 0x0003, 0x0006, bytes, 1)
             output = FrameOne.output(bytes1, 0x00, 0x05)
             return output
         
     # 让底盘控制进入 bootloader 模式
     @staticmethod
     def intoBootloader() -> bytearray:
-        bytes = []
+        bytes = bytearray()
         if brush:
             bytes1 = FrameTwo.two(0x0300, 0x0000, 0x0003, 0x0007, 0x0000, bytes, 1)
             output = FrameOne.output(bytes1, 0x00, 0x03)
@@ -231,7 +231,7 @@ class EleType:
     # 电机电源断电
     @staticmethod
     def offPower() -> bytearray:
-        bytes = []
+        bytes = bytearray()
         bytes1 = FrameTwo.two(0x0200, 0x0000, 0x0002, 0x0000, bytes, 1)
         output = FrameOne.output(bytes1, 0x00, 0x02)
         return output
@@ -239,7 +239,7 @@ class EleType:
     # 电机上电
     @staticmethod
     def onPower() -> bytearray:
-        bytes = []
+        bytes = bytearray()
         bytes1 = FrameTwo.two(0x0200, 0x0000, 0x0002, 0x0001, bytes, 1)
         output = FrameOne.output(bytes1, 0x00, 0x02)
         return output
@@ -247,7 +247,7 @@ class EleType:
     # 读取电池状态
     @staticmethod
     def getBatteryData() -> bytearray:
-        bytes = []
+        bytes = bytearray()
         bytes1 = FrameTwo.two(0x0200, 0x0000, 0x0002, 0x0002, bytes, 1)
         output = FrameOne.output(bytes1, 0x00, 0x02)
         return output
@@ -255,7 +255,7 @@ class EleType:
     # 获取电源控制固件版本号
     @staticmethod
     def getFwVersion() -> bytearray:
-        bytes = []
+        bytes = bytearray()
         bytes1 = FrameTwo.two(0x0200, 0x0000, 0x0002, 0x0003, bytes, 1)
         output = FrameOne.output(bytes1, 0x00, 0x02)
         return output
@@ -263,7 +263,7 @@ class EleType:
     # 让电源控制进入 bootloader 模式
     @staticmethod
     def intoBootloader() -> bytearray:
-        bytes = []
+        bytes = bytearray()
         bytes1 = FrameTwo.two(0x0200, 0x0000, 0x0002, 0x0004, bytes, 1)
         output = FrameOne.output(bytes1, 0x00, 0x02)
         return output
@@ -271,7 +271,7 @@ class EleType:
     # 复位电源
     @staticmethod
     def resetPower() -> bytearray:
-        bytes = []
+        bytes = bytearray()
         bytes1 = FrameTwo.two(0x0200, 0x0000, 0x0002, 0x0006, bytes, 1)
         output = FrameOne.output(bytes1, 0x00, 0x02)
         return output
@@ -279,7 +279,7 @@ class EleType:
     # 设置电池信息
     @staticmethod
     def setBatteryInfo() -> bytearray:
-        bytes = []
+        bytes = bytearray()
         bytes1 = FrameTwo.two(0x0200, 0x0000, 0x0002, 0x0007, bytes, 1)
         output = FrameOne.output(bytes1, 0x00, 0x02)
         return output
@@ -287,7 +287,7 @@ class EleType:
     # 开启风扇
     @staticmethod
     def openFan() -> bytearray:
-        bytes = []
+        bytes = bytearray()
         bytes1 = FrameTwo.two(0x0200, 0x0000, 0x0002, 0x0008, bytes, 1)
         output = FrameOne.output(bytes1, 0x00, 0x02)
         return output
@@ -295,7 +295,7 @@ class EleType:
     # 关闭风扇
     @staticmethod
     def closeFan() -> bytearray:
-        bytes = []
+        bytes = bytearray()
         bytes1 = FrameTwo.two(0x0200, 0x0000, 0x0002, 0x0009, bytes, 1)
         output = FrameOne.output(bytes1, 0x00, 0x02)
         return output
@@ -303,7 +303,7 @@ class EleType:
     # 打印数据
     @staticmethod
     def print(content: str) -> bytearray:
-        bytes = []
+        bytes = bytearray()
         bytes = content.encode('gb2312')
         bytes1 = FrameTwo.two(0x0200, 0x0000, 0x0002, 0x000A, bytes, 1)
         output = FrameOne.output(bytes1, 0x00, 0x02)
@@ -325,7 +325,7 @@ class EleType:
         output = FrameOne.output(bytes1, 0x00, 0x02)
         return output
 
-class HeadType:
+class LightType:
 
     # 眼睛灯光的效果控制
     @staticmethod
@@ -356,7 +356,7 @@ class HeadType:
     # 头部参数读取
     @staticmethod
     def headStatus() -> bytearray:
-        bytes = []
+        bytes = bytearray()
         bytes1 = FrameTwo.two(0x0400, 0x0000, 0x0004, 0x0003, bytes, 1)
         output = FrameOne.output(bytes1, 0x00, 0x05)
         return output
@@ -372,7 +372,7 @@ class HeadType:
     # 获取头部固件版本号
     @staticmethod
     def getHeadFwVersion() -> bytearray:
-        bytes = []
+        bytes = bytearray()
         bytes1 = FrameTwo.two(0x0400, 0x0000, 0x0004, 0x0005, bytes, 1)
         output = FrameOne.output(bytes1, 0x00, 0x05)
         return output
@@ -380,7 +380,7 @@ class HeadType:
     # 让头部进入 bootloader 模式
     @staticmethod
     def intoBootloader() -> bytearray:
-        bytes = []
+        bytes = bytearray()
         bytes1 = FrameTwo.two(0x0400, 0x0000, 0x0004, 0x0006, bytes, 1)
         output = FrameOne.output(bytes1, 0x00, 0x05)
         return output
@@ -388,7 +388,7 @@ class HeadType:
     # 让讯飞语音模块复位
     @staticmethod
     def resetModule() -> bytearray:
-        bytes = []
+        bytes = bytearray()
         bytes1 = FrameTwo.two(0x0400, 0x0000, 0x0004, 0x0007, bytes, 1)
         output = FrameOne.output(bytes1, 0x00, 0x05)
         return output
@@ -396,7 +396,7 @@ class HeadType:
     # 获取 uwb 数据
     @staticmethod
     def getUWBData() -> bytearray:
-        bytes = []
+        bytes = bytearray()
         bytes1 = FrameTwo.two(0x0400, 0x0000, 0x0004, 0x0008, bytes, 1)
         output = FrameOne.output(bytes1, 0x00, 0x05)
         return output
@@ -412,7 +412,7 @@ class HeadType:
     # 获取 uwb C帧数据
     @staticmethod
     def getUWBDataC() -> bytearray:
-        bytes = []
+        bytes = bytearray()
         bytes1 = FrameTwo.two(0x0400, 0x0000, 0x0004, 0x000A, bytes, 1)
         output = FrameOne.output(bytes1, 0x00, 0x05)
         return output
@@ -438,7 +438,7 @@ class MainCtl:
         # 获取407控制固件版本号
         @staticmethod
         def getFwVersion() -> bytearray:
-            bytes = []
+            bytes = bytearray()
             bytes1 = FrameTwo.two(0x00FC, 0x0000, 0x0004, 0x0005, bytes, 1)
             output = FrameOne.output(bytes1, 0x00, 0x05)
             return output
@@ -446,7 +446,7 @@ class MainCtl:
         # 让f407进入 bootloader 模式
         @staticmethod
         def intoBootloader() -> bytearray:
-            bytes = []
+            bytes = bytearray()
             bytes1 = FrameTwo.two(0x00FD, 0x0000, 0x0004, 0x0006, bytes, 1)
             output = FrameOne.output(bytes1, 0x00, 0x05)
             return output
@@ -467,7 +467,7 @@ class MotorPType:
     # 步进电机强制断电
     @staticmethod
     def stepMpOutage() -> bytearray:
-        bytes = []
+        bytes = bytearray()
         bytes1 = FrameTwo.two(0x0100, 0x0000, 0x0001, 0x0000, bytes, 1)
         output = FrameOne.output(bytes1, 0x00, 0x01)
         return output
@@ -475,7 +475,7 @@ class MotorPType:
     # 步进电机强制停止运动
     @staticmethod
     def stepMpStop() -> bytearray:
-        bytes = []
+        bytes = bytearray()
         bytes1 = FrameTwo.two(0x0100, 0x0000, 0x0001, 0x0001, bytes, 1)
         output = FrameOne.output(bytes1, 0x00, 0x01)
         return output
@@ -483,7 +483,7 @@ class MotorPType:
     # 读取步进电机的状态
     @staticmethod
     def stepMpStatus(targetId) -> bytearray:
-        bytes = []
+        bytes = bytearray()
         bytes1 = FrameTwo.two(targetId, 0x0000, 0x0001, 0x0002, bytes, 1)
         output = FrameOne.output(bytes1, 0x00, 0x01)
         return output
@@ -547,7 +547,7 @@ class MotorPType:
     # 获取电机控制固件版本号
     @staticmethod
     def getFwVersion(targetId) -> bytearray:
-        bytes = []
+        bytes = bytearray()
         bytes1 = FrameTwo.two(targetId, 0x0000, 0x0001, 0x000A, bytes, 1)
         output = FrameOne.output(bytes1, 0x00, 0x01)
         return output
@@ -555,7 +555,7 @@ class MotorPType:
     # 让电机控制进入 bootloader 模式
     @staticmethod
     def intoBootloader(targetId) -> bytearray:
-        bytes = []
+        bytes = bytearray()
         bytes1 = FrameTwo.two(targetId, 0x0000, 0x0001, 0x000B, bytes, 1)
         output = FrameOne.output(bytes1, 0x00, 0x01)
         return output
