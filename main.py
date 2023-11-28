@@ -4,7 +4,7 @@ from driver import HibotDriver
 from action import HandAction
 from send_type import EleType,ClassicType,LightType,MotorPType
 
-hibot = HibotDriver('COM4', 1152000)
+hibot = HibotDriver('COM17', 1152000)
 
 # for i in range(5):
 #     hibot.serial_send(EleType.getBatteryData())
@@ -35,7 +35,7 @@ hibot.serial_send(ClassicType.endOrder())
 
 hibot.do_action(HandAction.allStepToZero)
 hibot.serial_send(ClassicType.endOrder())
-sleep(10)
+sleep(5)
 
 # sleep(5)
 
@@ -48,15 +48,15 @@ while True:
     hibot.do_action(HandAction.handSeeYouNow)
     hibot.serial_send(ClassicType.endOrder())
     sleep(0.5)
-    hibot.serial_send(ClassicType.runWithSpeed(15, -15, 15))
-    hibot.serial_send(ClassicType.endOrder())
-    sleep(0.5)
+    # hibot.serial_send(ClassicType.runWithSpeed(15, -15, 15))
+    # hibot.serial_send(ClassicType.endOrder())
+    # sleep(0.5)
     hibot.do_action(HandAction.zhaoshouNow)
     hibot.serial_send(ClassicType.endOrder())
     sleep(0.5)
-    hibot.serial_send(ClassicType.runWithSpeed(-15, 15, 15))
-    hibot.serial_send(ClassicType.endOrder())
-    sleep(0.5)
+    # hibot.serial_send(ClassicType.runWithSpeed(-15, 15, 15))
+    # hibot.serial_send(ClassicType.endOrder())
+    # sleep(0.5)
 
     sleep(5)
     
