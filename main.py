@@ -35,7 +35,7 @@ hibot.serial_send(ClassicType.endOrder())
 
 hibot.do_action(HandAction.allStepToZero)
 hibot.serial_send(ClassicType.endOrder())
-sleep(5)
+sleep(2)
 
 # sleep(5)
 
@@ -44,21 +44,23 @@ sleep(5)
 
 # exit(0)
 
-while True:
-    hibot.do_action(HandAction.handSeeYouNow)
-    hibot.serial_send(ClassicType.endOrder())
-    sleep(0.5)
-    # hibot.serial_send(ClassicType.runWithSpeed(15, -15, 15))
-    # hibot.serial_send(ClassicType.endOrder())
-    # sleep(0.5)
-    hibot.do_action(HandAction.zhaoshouNow)
-    hibot.serial_send(ClassicType.endOrder())
-    sleep(0.5)
-    # hibot.serial_send(ClassicType.runWithSpeed(-15, 15, 15))
-    # hibot.serial_send(ClassicType.endOrder())
-    # sleep(0.5)
+hibot.do_action(HandAction.yi_xin_bei1)
 
-    sleep(5)
+# while True:
+#     hibot.do_action(HandAction.handSeeYouNow)
+#     hibot.serial_send(ClassicType.endOrder())
+#     sleep(0.5)
+#     # hibot.serial_send(ClassicType.runWithSpeed(15, -15, 15))
+#     # hibot.serial_send(ClassicType.endOrder())
+#     # sleep(0.5)
+#     hibot.do_action(HandAction.zhaoshouNow)
+#     hibot.serial_send(ClassicType.endOrder())
+#     sleep(0.5)
+#     # hibot.serial_send(ClassicType.runWithSpeed(-15, 15, 15))
+#     # hibot.serial_send(ClassicType.endOrder())
+#     # sleep(0.5)
+
+#     sleep(5)
     
 
 # while True:
