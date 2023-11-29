@@ -4,7 +4,9 @@ from driver import HibotDriver
 from action import HandAction
 from send_type import EleType,ClassicType,LightType,MotorPType
 
-hibot = HibotDriver('COM17', 1152000)
+import yixinbei
+
+hibot = HibotDriver('COM3', 1152000)
 
 # for i in range(5):
 #     hibot.serial_send(EleType.getBatteryData())
@@ -34,17 +36,17 @@ hibot.serial_send(MotorPType.stepMpStatus(0x0109))
 hibot.serial_send(ClassicType.endOrder())
 
 hibot.do_action(HandAction.allStepToZero)
+
+hibot.serial_send(LightType.eyeCTSingleColor(0,0,0,0xff))
+hibot.serial_send(LightType.topHeadControll(0,0,0,0xff))
 hibot.serial_send(ClassicType.endOrder())
+
 sleep(2)
 
-# sleep(5)
+yixinbei.run(hibot)
 
-# hibot.serial_send(ClassicType.runWithSpeed(15, -15, 6))
-# hibot.serial_send(ClassicType.endOrder())
+hibot.do_action(HandAction.allStepToZero)
 
-# exit(0)
-
-hibot.do_action(HandAction.yi_xin_bei1)
 
 # while True:
 #     hibot.do_action(HandAction.handSeeYouNow)

@@ -6,8 +6,8 @@ brush = False
 # 是否锁住底盘
 lockClassic = False
 
-class ClassicType:
 
+class ClassicType:
     # 机身静止
     @staticmethod
     def motionless():
@@ -70,7 +70,7 @@ class ClassicType:
                     return output
                 else:
                     return bytearray()
-                
+
     # 角度旋转
     @staticmethod
     def stepRun(mode, degree) -> bytearray:
@@ -89,7 +89,7 @@ class ClassicType:
                 return output
             else:
                 return bytearray()
-            
+
     # 速度控制
     @staticmethod
     def runWithSpeed(left, right, time) -> bytearray:
@@ -114,7 +114,7 @@ class ClassicType:
                     return output
                 else:
                     return bytearray()
-                
+
     # 数据反馈
     @staticmethod
     def getClassicData() -> bytearray:
@@ -127,7 +127,7 @@ class ClassicType:
             bytes1 = FrameTwo.two(0x0500, 0x0000, 0x0003, 0x0005, bytes, 1)
             output = FrameOne.output(bytes1, 0x00, 0x05)
             return output
-        
+
     # 结束指令
     @staticmethod
     def endOrder() -> bytearray:
@@ -135,7 +135,7 @@ class ClassicType:
         bytes1 = FrameTwo.two(0x00FE, 0x0000, 0, 0, bytes, 1)
         output = FrameOne.output(bytes1, 0xFE, 0x00)
         return output
-    
+
     # 自主避障运动
     @staticmethod
     def obsAvoidance(status) -> bytearray:
@@ -160,7 +160,7 @@ class ClassicType:
                     return output
                 else:
                     return bytearray()
-                
+
     # 获取底盘控制固件版本号
     @staticmethod
     def getFwVersion() -> bytearray:
@@ -173,7 +173,7 @@ class ClassicType:
             bytes1 = FrameTwo.two(0x0500, 0x0000, 0x0003, 0x0006, bytes, 1)
             output = FrameOne.output(bytes1, 0x00, 0x05)
             return output
-        
+
     # 让底盘控制进入 bootloader 模式
     @staticmethod
     def intoBootloader() -> bytearray:
@@ -186,7 +186,7 @@ class ClassicType:
             bytes1 = FrameTwo.two(0x0500, 0x0000, 0x0003, 0x0007, 0x0000, bytes, 1)
             output = FrameOne.output(bytes1, 0x00, 0x05)
             return output
-        
+
     # 让底盘控制进入 UWB  定位 模式
     @staticmethod
     def classicIntoUWB(currentX, currentY, expectX, expectY, deflection) -> bytearray:
@@ -199,7 +199,7 @@ class ClassicType:
             bytes1 = FrameTwo.two(0x0500, 0x0000, 0x0003, 0x0008, 0x0000, bytes, 1)
             output = FrameOne.output(bytes1, 0x00, 0x05)
             return output
-        
+
     # 发送更新数据
     @staticmethod
     def sendUpdata(indexData, data) -> bytearray:
@@ -212,7 +212,7 @@ class ClassicType:
             bytes1 = FrameTwo.two(0x0500, 0x0000, 0x00A0, 0x00A0, 0x0000, bytes, 1)
             output = FrameOne.output(bytes1, 0x00, 0x05)
             return output
-        
+
     # 所有更新数据发送完毕指令
     @staticmethod
     def sendUdEnd(data) -> bytearray:
@@ -226,8 +226,8 @@ class ClassicType:
             output = FrameOne.output(bytes1, 0x00, 0x05)
             return output
 
-class EleType:
 
+class EleType:
     # 电机电源断电
     @staticmethod
     def offPower() -> bytearray:
@@ -275,7 +275,7 @@ class EleType:
         bytes1 = FrameTwo.two(0x0200, 0x0000, 0x0002, 0x0006, bytes, 1)
         output = FrameOne.output(bytes1, 0x00, 0x02)
         return output
-    
+
     # 设置电池信息
     @staticmethod
     def setBatteryInfo() -> bytearray:
@@ -283,7 +283,7 @@ class EleType:
         bytes1 = FrameTwo.two(0x0200, 0x0000, 0x0002, 0x0007, bytes, 1)
         output = FrameOne.output(bytes1, 0x00, 0x02)
         return output
-    
+
     # 开启风扇
     @staticmethod
     def openFan() -> bytearray:
@@ -291,7 +291,7 @@ class EleType:
         bytes1 = FrameTwo.two(0x0200, 0x0000, 0x0002, 0x0008, bytes, 1)
         output = FrameOne.output(bytes1, 0x00, 0x02)
         return output
-    
+
     # 关闭风扇
     @staticmethod
     def closeFan() -> bytearray:
@@ -299,16 +299,16 @@ class EleType:
         bytes1 = FrameTwo.two(0x0200, 0x0000, 0x0002, 0x0009, bytes, 1)
         output = FrameOne.output(bytes1, 0x00, 0x02)
         return output
-    
+
     # 打印数据
     @staticmethod
     def print(content: str) -> bytearray:
         bytes = bytearray()
-        bytes = content.encode('gb2312')
+        bytes = content.encode("gb2312")
         bytes1 = FrameTwo.two(0x0200, 0x0000, 0x0002, 0x000A, bytes, 1)
         output = FrameOne.output(bytes1, 0x00, 0x02)
         return output
-    
+
     # 发送更新数据
     @staticmethod
     def sendUpdata(indexData, data) -> bytearray:
@@ -316,7 +316,7 @@ class EleType:
         bytes1 = FrameTwo.two(0x0200, 0x0000, 0x00A0, 0x00A0, bytes, 1)
         output = FrameOne.output(bytes1, 0x00, 0x02)
         return output
-    
+
     # 所有更新数据发送完毕指令
     @staticmethod
     def sendUdEnd(data) -> bytearray:
@@ -325,19 +325,109 @@ class EleType:
         output = FrameOne.output(bytes1, 0x00, 0x02)
         return output
 
+
 class LightType:
+    CTL_MODE_STATIC = 0x00
+    CTL_MODE_BREATH = 0x01
+    CTL_MODE_FLASH = 0x02
 
     # 眼睛灯光的效果控制
+    # /**
+    #  * @param controlMode   0：当控制模式为 0 的时候眼睛灯板的 0-8 号灯直接显示后续各个灯的 rgb 值
+    #  *                       1：连续色彩变换模式下眼睛灯光自动变色，当收到其他控制模式的时候退出该模式。
+    #  *                       2：控制眼睛眨眼一次，只有在直接控制灯 rgb 模式下才会执行该指令。
+    #  *                       3：等待模式下眼睛自动控制灯光旋转，当收到其他控制模式的时候退出该模式。
+    #  * @param r1             rgb色中的r
+    #  * @param g1            rgb色中的g
+    #  * @param b1            rgb色中的b
+    #  * @return
+    #  */
     @staticmethod
-    def eyeControll(controlMode, r1, g1, b1, r2, g2, b2, r3, g3, b3, r4, g4, b4,
-                    r5, g5, b5, r6, g6, b6, r7, g7, b7, r8, g8, b8) -> bytearray:
-        bytes = FrameThree.send6(controlMode, r1, g1, b1, r2, g2, b2, r3, g3, b3, r4, g4, b4,
-                                 r5, g5, b5, r6, g6, b6, r7, g7, b7, r8, g8, b8)
+    def eyeControll(
+        controlMode,
+        r1,
+        g1,
+        b1,
+        r2,
+        g2,
+        b2,
+        r3,
+        g3,
+        b3,
+        r4,
+        g4,
+        b4,
+        r5,
+        g5,
+        b5,
+        r6,
+        g6,
+        b6,
+        r7,
+        g7,
+        b7,
+        r8,
+        g8,
+        b8,
+    ) -> bytearray:
+        bytes = FrameThree.send6(
+            controlMode,
+            r1,
+            g1,
+            b1,
+            r2,
+            g2,
+            b2,
+            r3,
+            g3,
+            b3,
+            r4,
+            g4,
+            b4,
+            r5,
+            g5,
+            b5,
+            r6,
+            g6,
+            b6,
+            r7,
+            g7,
+            b7,
+            r8,
+            g8,
+            b8,
+        )
+        bytes1 = FrameTwo.two(0x0400, 0x0000, 0x0004, 0x0000, bytes, 1)
+        output = FrameOne.output(bytes1, 0x00, 0x05)
+        return output
+    
+    # /**
+    #  * @param controlMode   0：当控制模式为 0 的时候眼睛灯板的 0-8 号灯直接显示后续各个灯的 rgb 值
+    #  *                       1：连续色彩变换模式下眼睛灯光自动变色，当收到其他控制模式的时候退出该模式。
+    #  *                       2：控制眼睛眨眼一次，只有在直接控制灯 rgb 模式下才会执行该指令。
+    #  *                       3：等待模式下眼睛自动控制灯光旋转，当收到其他控制模式的时候退出该模式。
+    #  * @param r1             rgb色中的r
+    #  * @param g1            rgb色中的g
+    #  * @param b1            rgb色中的b
+    #  * @return
+    #  */
+    @staticmethod
+    def eyeCTSingleColor(controlMode, r1, g1, b1) -> bytearray:
+        bytes = FrameThree.send6(controlMode, r1, g1, b1, r1, g1, b1, r1, g1, b1, r1, g1, b1, r1, g1, b1, r1, g1, b1, r1, g1, b1, r1, g1, b1);
         bytes1 = FrameTwo.two(0x0400, 0x0000, 0x0004, 0x0000, bytes, 1)
         output = FrameOne.output(bytes1, 0x00, 0x05)
         return output
 
     # 耳朵灯光控制效果
+    # /**
+    #  * @param controlMode   0：当控制模式为 0 的时候耳朵灯板的灯直接显示耳朵灯的 rgb 值。
+    #                         1：连续色彩变换模式下灯光自动变色，当收到其他控制模式的时候退出该模式。
+    #                         2：基于灯 rgb 值作为最大值运行呼吸灯效果，当收到其他控制模式的时候退出该模式。
+    #  * @param r1    rgb色中的r
+    #  * @param g1    rgb色中的g
+    #  * @param b1    rgb色中的b
+    #  * @return
+    #  */
     @staticmethod
     def earControll(controlMode, r1, g1, b1) -> bytearray:
         bytes = FrameThree.send7(controlMode, r1, g1, b1)
@@ -346,6 +436,15 @@ class LightType:
         return output
 
     # 头顶灯光效果控制
+    # /**
+    #  * @param controlMode   0：当控制模式为 0 的时候头顶灯板的灯直接显示耳头顶灯的 rgb 值。
+    #                         1：连续色彩变换模式下灯光自动变色，当收到其他控制模式的时候退出该模式。
+    #                         2：基于灯 rgb 值作为最大值运行呼吸灯效果，当收到其他控制模式的时候退出该模式。
+    #  * @param r1    rgb色中的r
+    #  * @param g1    rgb色中的g
+    #  * @param b1    rgb色中的b
+    #  * @return
+    #  */
     @staticmethod
     def topHeadControll(controlMode, r1, g1, b1) -> bytearray:
         bytes = FrameThree.send8(controlMode, r1, g1, b1)
@@ -360,7 +459,7 @@ class LightType:
         bytes1 = FrameTwo.two(0x0400, 0x0000, 0x0004, 0x0003, bytes, 1)
         output = FrameOne.output(bytes1, 0x00, 0x05)
         return output
-    
+
     # 声源增强
     @staticmethod
     def headVoice(number) -> bytearray:
@@ -368,7 +467,7 @@ class LightType:
         bytes1 = FrameTwo.two(0x0400, 0x0000, 0x0004, 0x0004, bytes, 1)
         output = FrameOne.output(bytes1, 0x00, 0x05)
         return output
-    
+
     # 获取头部固件版本号
     @staticmethod
     def getHeadFwVersion() -> bytearray:
@@ -376,7 +475,7 @@ class LightType:
         bytes1 = FrameTwo.two(0x0400, 0x0000, 0x0004, 0x0005, bytes, 1)
         output = FrameOne.output(bytes1, 0x00, 0x05)
         return output
-    
+
     # 让头部进入 bootloader 模式
     @staticmethod
     def intoBootloader() -> bytearray:
@@ -384,7 +483,7 @@ class LightType:
         bytes1 = FrameTwo.two(0x0400, 0x0000, 0x0004, 0x0006, bytes, 1)
         output = FrameOne.output(bytes1, 0x00, 0x05)
         return output
-    
+
     # 让讯飞语音模块复位
     @staticmethod
     def resetModule() -> bytearray:
@@ -392,7 +491,7 @@ class LightType:
         bytes1 = FrameTwo.two(0x0400, 0x0000, 0x0004, 0x0007, bytes, 1)
         output = FrameOne.output(bytes1, 0x00, 0x05)
         return output
-    
+
     # 获取 uwb 数据
     @staticmethod
     def getUWBData() -> bytearray:
@@ -400,7 +499,7 @@ class LightType:
         bytes1 = FrameTwo.two(0x0400, 0x0000, 0x0004, 0x0008, bytes, 1)
         output = FrameOne.output(bytes1, 0x00, 0x05)
         return output
-    
+
     # 无线麦开关控制
     @staticmethod
     def wirelessMicControll(on_off) -> bytearray:
@@ -408,7 +507,7 @@ class LightType:
         bytes1 = FrameTwo.two(0x0400, 0x0000, 0x0004, 0x0009, bytes, 1)
         output = FrameOne.output(bytes1, 0x00, 0x01)
         return output
-    
+
     # 获取 uwb C帧数据
     @staticmethod
     def getUWBDataC() -> bytearray:
@@ -416,7 +515,7 @@ class LightType:
         bytes1 = FrameTwo.two(0x0400, 0x0000, 0x0004, 0x000A, bytes, 1)
         output = FrameOne.output(bytes1, 0x00, 0x05)
         return output
-    
+
     # 发送更新数据
     @staticmethod
     def sendUpdata(indexData, data) -> bytearray:
@@ -424,7 +523,7 @@ class LightType:
         bytes1 = FrameTwo.two(0x0400, 0x0000, 0x00A0, 0x00A0, bytes, 1)
         output = FrameOne.output(bytes1, 0x00, 0x05)
         return output
-    
+
     # 所有更新数据发送完毕指令
     @staticmethod
     def sendUdEnd(data) -> bytearray:
@@ -433,35 +532,36 @@ class LightType:
         output = FrameOne.output(bytes1, 0x00, 0x05)
         return output
 
+
 class MainCtl:
-    
-        # 获取407控制固件版本号
-        @staticmethod
-        def getFwVersion() -> bytearray:
-            bytes = bytearray()
-            bytes1 = FrameTwo.two(0x00FC, 0x0000, 0x0004, 0x0005, bytes, 1)
-            output = FrameOne.output(bytes1, 0x00, 0x05)
-            return output
-    
-        # 让f407进入 bootloader 模式
-        @staticmethod
-        def intoBootloader() -> bytearray:
-            bytes = bytearray()
-            bytes1 = FrameTwo.two(0x00FD, 0x0000, 0x0004, 0x0006, bytes, 1)
-            output = FrameOne.output(bytes1, 0x00, 0x05)
-            return output
-    
-        # 发送更新数据
-        @staticmethod
-        def sendUpdata(indexData, data) -> bytearray:
-            bytes = FrameThree.send14(indexData, data)
-            return bytes
-    
-        # 所有更新数据发送完毕指令
-        @staticmethod
-        def sendUdEnd(data) -> bytearray:
-            bytes = FrameThree.send15(data)
-            return bytes
+    # 获取407控制固件版本号
+    @staticmethod
+    def getFwVersion() -> bytearray:
+        bytes = bytearray()
+        bytes1 = FrameTwo.two(0x00FC, 0x0000, 0x0004, 0x0005, bytes, 1)
+        output = FrameOne.output(bytes1, 0x00, 0x05)
+        return output
+
+    # 让f407进入 bootloader 模式
+    @staticmethod
+    def intoBootloader() -> bytearray:
+        bytes = bytearray()
+        bytes1 = FrameTwo.two(0x00FD, 0x0000, 0x0004, 0x0006, bytes, 1)
+        output = FrameOne.output(bytes1, 0x00, 0x05)
+        return output
+
+    # 发送更新数据
+    @staticmethod
+    def sendUpdata(indexData, data) -> bytearray:
+        bytes = FrameThree.send14(indexData, data)
+        return bytes
+
+    # 所有更新数据发送完毕指令
+    @staticmethod
+    def sendUdEnd(data) -> bytearray:
+        bytes = FrameThree.send15(data)
+        return bytes
+
 
 class MotorPType:
     # 步进电机强制断电
@@ -511,7 +611,7 @@ class MotorPType:
         bytes1 = FrameTwo.two(0x0100, 0x0000, 0x0001, 0x0005, bytes, 1)
         output = FrameOne.output(bytes1, 0x00, 0x01)
         return output
-    
+
     # 设置步进电机运行位置表发送
     @staticmethod
     def stepMpLoc(way, ints) -> bytearray:
@@ -519,7 +619,7 @@ class MotorPType:
         bytes1 = FrameTwo.two(0x0100, 0x0000, 0x0001, 0x0006, bytes, 1)
         output = FrameOne.output(bytes1, 0x00, 0x01)
         return output
-    
+
     # 设置步进电机 电机运行目标位置运动
     @staticmethod
     def stepMpToEndLoc(targetId, endLoc, time, endMode) -> bytearray:
@@ -527,7 +627,7 @@ class MotorPType:
         bytes1 = FrameTwo.two(targetId, 0x0000, 0x0001, 0x0007, bytes, 1)
         output = FrameOne.output(bytes1, 0x00, 0x01)
         return output
-    
+
     # 设置电机传感器校准参数采集
     @staticmethod
     def stepMpJiaoZhun(targetId, way, maiChong, degree) -> bytearray:
@@ -535,15 +635,17 @@ class MotorPType:
         bytes1 = FrameTwo.two(targetId, 0x0000, 0x0001, 0x0008, bytes, 1)
         output = FrameOne.output(bytes1, 0x00, 0x01)
         return output
-    
+
     # 配置电机控制参数
     @staticmethod
-    def stepMpSetting(targetId, maxDegree, minDegee, maiChong, p1, p2, p3, way) -> bytearray:
+    def stepMpSetting(
+        targetId, maxDegree, minDegee, maiChong, p1, p2, p3, way
+    ) -> bytearray:
         bytes = FrameThree.send11(maxDegree, minDegee, maiChong, p1, p2, p3, way)
         bytes1 = FrameTwo.two(targetId, 0x0000, 0x0001, 0x0009, bytes, 1)
         output = FrameOne.output(bytes1, 0x00, 0x01)
         return output
-    
+
     # 获取电机控制固件版本号
     @staticmethod
     def getFwVersion(targetId) -> bytearray:
@@ -551,7 +653,7 @@ class MotorPType:
         bytes1 = FrameTwo.two(targetId, 0x0000, 0x0001, 0x000A, bytes, 1)
         output = FrameOne.output(bytes1, 0x00, 0x01)
         return output
-    
+
     # 让电机控制进入 bootloader 模式
     @staticmethod
     def intoBootloader(targetId) -> bytearray:
@@ -559,14 +661,14 @@ class MotorPType:
         bytes1 = FrameTwo.two(targetId, 0x0000, 0x0001, 0x000B, bytes, 1)
         output = FrameOne.output(bytes1, 0x00, 0x01)
         return output
-    
+
     @staticmethod
     def setElectricity(targetId, electricity) -> bytearray:
         bytes = FrameThree.send19(electricity)
         bytes1 = FrameTwo.two(targetId, 0x0000, 0x0001, 0x000C, bytes, 1)
         output = FrameOne.output(bytes1, 0x00, 0x01)
         return output
-    
+
     # 发送更新数据
     @staticmethod
     def sendUpdata(targetId, indexData, data) -> bytearray:
@@ -574,7 +676,7 @@ class MotorPType:
         bytes1 = FrameTwo.two(targetId, 0x0000, 0x00A0, 0x00A0, bytes, 1)
         output = FrameOne.output(bytes1, 0x00, 0x01)
         return output
-    
+
     # 所有更新数据发送完毕指令
     @staticmethod
     def sendUdEnd(targetId, data) -> bytearray:
@@ -582,7 +684,7 @@ class MotorPType:
         bytes1 = FrameTwo.two(targetId, 0x0000, 0x00A0, 0x00A0, bytes, 1)
         output = FrameOne.output(bytes1, 0x00, 0x01)
         return output
-    
+
     # 设置步进电机根据设定参数运动
     @staticmethod
     def stepMpParamsRunNotEndDegree(targetId, rSpeed, rJourney, endMode) -> bytearray:
@@ -590,10 +692,12 @@ class MotorPType:
         bytes1 = FrameTwo.two(targetId, 0x0000, 0x0001, 0x000D, bytes, 1)
         output = FrameOne.output(bytes1, 0x00, 0x01)
         return output
-    
+
     # 设置加速度
     @staticmethod
-    def setAcceleratedSpeed(targetId, acceleratedSpeed, acceleratedAcceleratedSpeed) -> bytearray:
+    def setAcceleratedSpeed(
+        targetId, acceleratedSpeed, acceleratedAcceleratedSpeed
+    ) -> bytearray:
         bytes = FrameThree.send20(acceleratedSpeed, acceleratedAcceleratedSpeed)
         bytes1 = FrameTwo.two(targetId, 0x0000, 0x0001, 0x000E, bytes, 1)
         output = FrameOne.output(bytes1, 0x00, 0x01)
