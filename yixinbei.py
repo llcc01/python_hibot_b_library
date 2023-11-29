@@ -56,7 +56,7 @@ def run(hibot: HibotDriver):
     #     hibot.serial_send(ClassicType.endOrder())
     #     sleep(2)
 
-    for _ in range(10):
+    for _ in range(3):
         hibot.do_action(HandAction.speakActionLeftUp)
         sleep(0.3)
         hibot.do_action(HandAction.speakActionRightUp)
