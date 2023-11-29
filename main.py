@@ -1,12 +1,18 @@
 from time import sleep
+import os
 
 from driver import HibotDriver
 from action import HandAction
-from send_type import EleType,ClassicType,LightType,MotorPType
+from send_type import EleType, ClassicType, LightType, MotorPType
 
 import yixinbei
 
-hibot = HibotDriver('COM3', 1152000)
+# dotenv
+from dotenv import load_dotenv
+
+load_dotenv()
+
+hibot = HibotDriver(os.environ.get("HIBOT_PORT", "COM3"), 1152000)
 
 # for i in range(5):
 #     hibot.serial_send(EleType.getBatteryData())
@@ -21,8 +27,8 @@ sleep(0.1)
 hibot.serial_send(EleType.getBatteryData())
 hibot.serial_send(ClassicType.getClassicData())
 hibot.serial_send(ClassicType.getFwVersion())
-hibot.serial_send(MotorPType.stepMpStatus(0x010a))
-hibot.serial_send(MotorPType.stepMpStatus(0x010b))
+hibot.serial_send(MotorPType.stepMpStatus(0x010A))
+hibot.serial_send(MotorPType.stepMpStatus(0x010B))
 hibot.serial_send(MotorPType.stepMpStatus(0x0100))
 hibot.serial_send(MotorPType.stepMpStatus(0x0101))
 hibot.serial_send(MotorPType.stepMpStatus(0x0102))
@@ -37,8 +43,8 @@ hibot.serial_send(ClassicType.endOrder())
 
 hibot.do_action(HandAction.allStepToZero)
 
-hibot.serial_send(LightType.eyeCTSingleColor(0,0,0,0xff))
-hibot.serial_send(LightType.topHeadControll(0,0,0,0xff))
+hibot.serial_send(LightType.eyeCTSingleColor(0, 0, 0, 0xFF))
+hibot.serial_send(LightType.topHeadControll(0, 0, 0, 0xFF))
 hibot.serial_send(ClassicType.endOrder())
 
 sleep(2)
@@ -63,7 +69,7 @@ hibot.do_action(HandAction.allStepToZero)
 #     # sleep(0.5)
 
 #     sleep(5)
-    
+
 
 # while True:
 #     dat = hibot.ser.read(1000)
