@@ -1,14 +1,15 @@
 from time import sleep
 import os
 
+# dotenv
+from dotenv import load_dotenv
 from driver import HibotDriver
 from action import HandAction
 from send_type import EleType, ClassicType, LightType, MotorPType
 
-import yixinbei
 
-# dotenv
-from dotenv import load_dotenv
+import webapi
+
 
 load_dotenv()
 
@@ -49,9 +50,11 @@ hibot.serial_send(ClassicType.endOrder())
 
 sleep(2)
 
-yixinbei.run(hibot)
+webapi.init(hibot)
 
-hibot.do_action(HandAction.allStepToZero)
+# yixinbei.run(hibot)
+
+# hibot.do_action(HandAction.allStepToZero)
 
 
 # while True:

@@ -1,4 +1,5 @@
 import serial
+import threading
 
 class HibotDriver:
     def __init__(self, port, baudrate):
@@ -6,6 +7,7 @@ class HibotDriver:
         self.baudrate = baudrate
         self.ser = serial.Serial(port, baudrate, timeout=1)
         self.ser.flush()
+        self.mutex = threading.Lock()
 
     def serial_send(self, data: bytearray):
         print(data.hex())
@@ -21,4 +23,12 @@ class HibotDriver:
         self.ser.flush()
 
     def do_action(self, action):
+        self.lock()
         action(self)
+        self.unlock()
+
+    def lock(self):
+        self.mutex.acquire()
+
+    def unlock(self):
+        self.mutex.release()

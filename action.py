@@ -82,40 +82,6 @@ class HandAction:
         sleep(2.8)
 
     @staticmethod
-    def yi_xin_bei1(d: HibotDriver):
-        # 左臂
-        bytesl = MotorPType.stepMpToEndLoc(0x0100, -7000, 800, 0)
-        bytesl1 = MotorPType.stepMpToEndLoc(0x0101, -2000, 400, 0)
-        bytes2l = MotorPType.stepMpToEndLoc(0x0103, -5000, 800, 0)
-        d.serial_send(bytesl + bytesl1 + bytes2l)
-        d.serial_send(ClassicType.endOrder())
-        sleep(1)
-
-        bytes31 = MotorPType.stepMpToEndLoc(0x0102, 8000, 400, 0)
-        d.serial_send(bytes31)
-        d.serial_send(ClassicType.endOrder())
-        sleep(1)
-
-        bytes32 = MotorPType.stepMpToEndLoc(0x0102, 0, 400, 0)
-        d.serial_send(bytes32)
-        d.serial_send(ClassicType.endOrder())
-        sleep(1)
-
-        bytes33 = MotorPType.stepMpToEndLoc(0x0102, 8000, 400, 1)
-        d.serial_send(bytes33)
-        d.serial_send(ClassicType.endOrder())
-        sleep(1)
-
-        bytes34 = MotorPType.stepMpZero(0x0102, 8000)
-        d.serial_send(bytes34)
-        d.serial_send(ClassicType.endOrder())
-        sleep(1)
-
-        HandAction.allStepToZero(d)
-        d.serial_send(ClassicType.endOrder())
-        sleep(2)
-
-    @staticmethod
     def please(d: HibotDriver):
         bytes = MotorPType.stepMpToEndLoc(0x0105, 15000, 2000, 0)
         bytes1 = MotorPType.stepMpToEndLoc(0x0106, -3000, 800, 0)
@@ -228,11 +194,17 @@ class HandAction:
         bytesR7 = MotorPType.stepMpToEndLoc(0x0107, -6000, 1200, 0)
 
         d.serial_send(
-            bytesL0 + bytesL1 + bytesL2 + bytesL3 + bytesHR1 + bytesR5 + bytesR6 + bytesR7
+            bytesL0
+            + bytesL1
+            + bytesL2
+            + bytesL3
+            + bytesHR1
+            + bytesR5
+            + bytesR6
+            + bytesR7
         )
         d.serial_send(ClassicType.endOrder())
         sleep(2.5)
-
 
     # 演讲动作右上
     @staticmethod
