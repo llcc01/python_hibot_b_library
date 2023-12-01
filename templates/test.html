@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8">
+    <title>黑豆机器人遥控器</title>
+    <!-- Include Bootstrap JS -->
+    <script src="https://cdn.staticfile.org/bootstrap/5.3.2/js/bootstrap.min.js"></script>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/bootstrap/5.3.2/css/bootstrap.min.css">
+    <!-- Include Axios JS -->
+    <script src="https://cdn.staticfile.org/axios/1.6.2/axios.min.js"></script>
+    <!-- Include jQuery -->
+    <script src="https://cdn.staticfile.org/jquery/3.7.1/jquery.min.js"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <div class="container">
+        <h1>黑豆机器人遥控器</h1>
+        <button class="btn btn-primary mt-1" id="buttonReset">复位</button>
+        <button class="btn btn-info mt-1" id="button1">动作1</button>
+        <button class="btn btn-primary mt-1" id="buttonDanceStart">开始跳舞</button>
+        <button class="btn btn-danger mt-1" id="buttonDanceStop">停止跳舞</button>
+        <button class="btn btn-primary mt-1" id="buttonWave">挥手</button>
+        <div class="toast align-items-center mt-1" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    Hello, world! This is a toast message.
+                </div>
+                <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get buttons by ID
+        var buttonReset = document.getElementById('buttonReset');
+        var button1 = document.getElementById('button1');
+        var buttonDanceStart = document.getElementById('buttonDanceStart');
+        var buttonDanceStop = document.getElementById('buttonDanceStop');
+        var buttonWave = document.getElementById('buttonWave');
+
+        var timer = null;
+
+        function showToast(message) {
+            const toast = new bootstrap.Toast($('.toast'));
+            $('.toast-body').text(message);
+            toast.show();
+            if (timer) {
+                clearTimeout(timer);
+            }
+            timer = setTimeout(function () {
+                toast.hide();
+                timer = null;
+            }, 3000);
+        }
+
+        axios.interceptors.request.use(function (config) {
+            showToast("操作中，请稍候...");
+            return config;
+        }, function (error) {
+            return Promise.reject(error);
+        });
+
+        axios.interceptors.response.use(function (response) {
+            showToast("操作成功");
+            return response;
+        }, function (error) {
+            showToast(error.response.data.error ?? error.message);
+            return Promise.reject(error);
+        });
+
+        // Add event listeners to buttons
+        buttonReset.addEventListener('click', function () {
+            // Make a GET request to an API
+            axios.get('action', {
+                params: {
+                    action: 'allStepToZero'
+                }
+            })
+                .then(function (response) {
+                    // handle success
+                    console.log(response);
+                })
+                .catch(function (error) {
+                    // handle error
+                    console.log(error);
+                });
+        });
+
+        button1.addEventListener('click', function () {
+            // Make a GET request to an API
+            axios.get('yixinbei', {
+                params: {
+                    func: 'action1'
+                }
+            })
+                .then(function (response) {
+                    // handle success
+                    console.log(response);
+                })
+                .catch(function (error) {
+                    // handle error
+                    console.log(error);
+                });
+        });
+
+        buttonDanceStart.addEventListener('click', function () {
+            // Make a GET request to another API
+            axios.get('yixinbei', {
+                params: {
+                    func: 'dance_start'
+                }
+            })
+                .then(function (response) {
+                    // handle success
+                    console.log(response);
+                })
+                .catch(function (error) {
+                    // handle error
+                    console.log(error);
+                });
+        });
+
+        buttonDanceStop.addEventListener('click', function () {
+            // Make a GET request to another API
+            axios.get('yixinbei', {
+                params: {
+                    func: 'dance_stop'
+                }
+            })
+                .then(function (response) {
+                    // handle success
+                    console.log(response);
+                })
+                .catch(function (error) {
+                    // handle error
+                    console.log(error);
+                });
+        });
+
+        buttonWave.addEventListener('click', function () {
+            // Make a GET request to another API
+            axios.get('action', {
+                params: {
+                    action: 'waving'
+                }
+            })
+                .then(function (response) {
+                    // handle success
+                    console.log(response);
+                })
+                .catch(function (error) {
+                    // handle error
+                    console.log(error);
+                });
+        });
+    </script>
+</body>
+
+</html>
