@@ -53,6 +53,8 @@ if __name__ == "__main__":
 
     sleep(2)
 
+    os.system("chromium --start-fullscreen http://hibot.s.blueprint.org.cn/ &")
+
     webapi.init(hibot)
 
     # yixinbei.run(hibot)

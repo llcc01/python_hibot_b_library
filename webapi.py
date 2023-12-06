@@ -65,6 +65,8 @@ def look():
             "action1": yixinbei.action1,
             "dance_start": yixinbei.dance_start,
             "dance_stop": yixinbei.dance_stop,
+            "wave_start": yixinbei.wave_start,
+            "wave_stop": yixinbei.wave_stop,
         }
         if func not in func_map:
             response = flask.jsonify({"error": f"func {func} not found"})

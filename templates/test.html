@@ -23,7 +23,9 @@
         <button class="btn btn-info mt-1" id="button1">动作1</button>
         <button class="btn btn-primary mt-1" id="buttonDanceStart">开始跳舞</button>
         <button class="btn btn-danger mt-1" id="buttonDanceStop">停止跳舞</button>
-        <button class="btn btn-primary mt-1" id="buttonWave">挥手</button>
+        <button class="btn btn-primary mt-1" id="buttonWave">挥手一次</button>
+        <button class="btn btn-primary mt-1" id="buttonWaveStart">开始挥手</button>
+        <button class="btn btn-danger mt-1" id="buttonWaveStop">停止挥手</button>
         <div class="toast align-items-center mt-1" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="d-flex">
                 <div class="toast-body">
@@ -41,6 +43,8 @@
         var buttonDanceStart = document.getElementById('buttonDanceStart');
         var buttonDanceStop = document.getElementById('buttonDanceStop');
         var buttonWave = document.getElementById('buttonWave');
+        var buttonWaveStart = document.getElementById('buttonWaveStart');
+        var buttonWaveStop = document.getElementById('buttonWaveStop');
 
         var timer = null;
 
@@ -145,7 +149,41 @@
             // Make a GET request to another API
             axios.get('action', {
                 params: {
-                    action: 'waving'
+                    action: 'waving_once'
+                }
+            })
+                .then(function (response) {
+                    // handle success
+                    console.log(response);
+                })
+                .catch(function (error) {
+                    // handle error
+                    console.log(error);
+                });
+        });
+
+        buttonWaveStart.addEventListener('click', function () {
+            // Make a GET request to another API
+            axios.get('yixinbei', {
+                params: {
+                    func: 'wave_start'
+                }
+            })
+                .then(function (response) {
+                    // handle success
+                    console.log(response);
+                })
+                .catch(function (error) {
+                    // handle error
+                    console.log(error);
+                });
+        });
+
+        buttonWaveStop.addEventListener('click', function () {
+            // Make a GET request to another API
+            axios.get('yixinbei', {
+                params: {
+                    func: 'wave_stop'
                 }
             })
                 .then(function (response) {

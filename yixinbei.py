@@ -67,13 +67,23 @@ def dance(hibot: HibotDriver):
     while dance_running:
         hibot.do_action(HandAction.speakActionLeftUp)
         sleep(0.3)
+        if not dance_running:
+            break
         hibot.do_action(HandAction.speakActionRightUp)
         sleep(0.3)
+        if not dance_running:
+            break
         hibot.do_action(HandAction.stepToSpeachBaseAction)
         sleep(0.3)
+        if not dance_running:
+            break
         hibot.do_action(HandAction.please)
         sleep(0.3)
+        if not dance_running:
+            break
         hibot.do_action(HandAction.stepToSpeachBaseAction)
+        if not dance_running:
+            break
         sleep(1)
 
 def dance_start(hibot: HibotDriver):
@@ -92,8 +102,47 @@ def dance_stop(hibot: HibotDriver):
     dance_thread.join()
     hibot.do_action(HandAction.allStepToZero)
 
+wave_running = False
+wave_thread = None
+
+def wave(hibot: HibotDriver):
+    global wave_running
+    hibot.do_action(HandAction.waving_p1)
+    sleep(0.3)
+    while wave_running:
+        hibot.do_action(HandAction.waving_p2_1)
+        sleep(0.3)
+        if not wave_running:
+            break
+        hibot.do_action(HandAction.waving_p2_2)
+        sleep(0.3)
+        if not wave_running:
+            break
+        hibot.do_action(HandAction.waving_p2_3)
+        sleep(0.3)
+        if not wave_running:
+            break
+        hibot.do_action(HandAction.waving_p2_4)
+        sleep(0.3)
+
+def wave_start(hibot: HibotDriver):
+    global wave_running, wave_thread
+    if wave_running:
+        return
+    wave_running = True
+    wave_thread = threading.Thread(target=wave, args=(hibot,))
+    wave_thread.start()
+
+def wave_stop(hibot: HibotDriver):
+    global wave_running, wave_thread
+    if not wave_running:
+        return
+    wave_running = False
+    wave_thread.join()
+    hibot.do_action(HandAction.allStepToZero)
+
 def action1(hibot: HibotDriver):
-    hibot.do_action(HandAction.waving)
+    hibot.do_action(HandAction.waving_once)
     hibot.do_action(HandAction.point_look)
     hibot.serial_send(ClassicType.runWithSpeed(15, -15, 15))
     hibot.serial_send(ClassicType.endOrder())

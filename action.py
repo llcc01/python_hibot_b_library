@@ -113,7 +113,7 @@ class HandAction:
         # sleep(2)
 
     @staticmethod
-    def waving(d: HibotDriver):
+    def waving_once(d: HibotDriver):
         bytes = MotorPType.stepMpToEndLoc(0x0105, 22000, 3000, 0)
         bytes1 = MotorPType.stepMpToEndLoc(0x0106, -2000, 400, 0)
         bytes2 = MotorPType.stepMpToEndLoc(0x0108, -7000, 1400, 0)
@@ -142,9 +142,47 @@ class HandAction:
         d.serial_send(ClassicType.endOrder())
         sleep(1.5)
 
-        # HandAction.allStepToZero(d)
-        # d.serial_send(ClassicType.endOrder())
-        # sleep(2)
+        HandAction.allStepToZero(d)
+        d.serial_send(ClassicType.endOrder())
+        sleep(2)
+
+    @staticmethod
+    def waving_p1(d: HibotDriver):
+        bytes = MotorPType.stepMpToEndLoc(0x0105, 22000, 3000, 0)
+        bytes1 = MotorPType.stepMpToEndLoc(0x0106, -2000, 400, 0)
+        bytes2 = MotorPType.stepMpToEndLoc(0x0108, -7000, 1400, 0)
+        bytes3 = MotorPType.stepMpZero(0x0107, 5000)
+        d.serial_send(bytes + bytes1 + bytes2 + bytes3)
+        d.serial_send(ClassicType.endOrder())
+        sleep(3.2)
+
+    @staticmethod
+    def waving_p2_1(d: HibotDriver):
+        bytes31 = MotorPType.stepMpToEndLoc(0x0106, -5000, 500, 0)
+        d.serial_send(bytes31)
+        d.serial_send(ClassicType.endOrder())
+        sleep(0.5)
+
+    @staticmethod
+    def waving_p2_2(d: HibotDriver):
+        bytes32 = MotorPType.stepMpToEndLoc(0x0106, -500, 500, 0)
+        d.serial_send(bytes32)
+        d.serial_send(ClassicType.endOrder())
+        sleep(1.5)
+
+    @staticmethod
+    def waving_p2_3(d: HibotDriver):
+        bytes31 = MotorPType.stepMpToEndLoc(0x0106, -5000, 500, 0)
+        d.serial_send(bytes31)
+        d.serial_send(ClassicType.endOrder())
+        sleep(1)
+
+    @staticmethod
+    def waving_p2_4(d: HibotDriver):
+        bytes32 = MotorPType.stepMpToEndLoc(0x0106, -500, 500, 0)
+        d.serial_send(bytes32)
+        d.serial_send(ClassicType.endOrder())
+        sleep(1.5)
 
     # 演讲的时候基本动作
     @staticmethod
